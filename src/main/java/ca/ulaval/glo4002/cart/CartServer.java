@@ -28,7 +28,7 @@ public class CartServer implements Runnable {
     }
 
     public static void main(String[] args) {
-        String portString = System.getProperty("PORT");
+        String portString = System.getenv("PORT");
         System.out.println("Port récupéré : " + portString);
         int port = portString != null ? Integer.parseInt(portString) : 8080;
         System.out.println("Port utilisé : " + port);
