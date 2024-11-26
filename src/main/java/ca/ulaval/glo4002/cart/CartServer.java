@@ -28,8 +28,11 @@ public class CartServer implements Runnable {
     }
 
     public static void main(String[] args) {
-        String port = System.getProperty("port", "8080");
-        new CartServer(Integer.parseInt(port)).run();
+        String portString = System.getProperty("PORT");
+        System.out.println("Port récupéré : " + portString);
+        int port = portString != null ? Integer.parseInt(portString) : 8080;
+        System.out.println("Port utilisé : " + port);
+        new CartServer(port).run();
     }
 
     public void run() {
