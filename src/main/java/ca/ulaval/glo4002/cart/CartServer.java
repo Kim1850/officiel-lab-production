@@ -21,22 +21,28 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 public class CartServer implements Runnable {
     private static final int PORT = 7222;
+    private final int port;
+
+    public CartServer(int port) {
+        this.port = port;
+    }
 
     public static void main(String[] args) {
-        new CartServer().run();
+        String port = System.getProperty("port", "8080");
+        new CartServer(Integer.parseInt(port)).run();
     }
 
     public void run() {
         configureContext();
-        startServer();
+        startServer(port);
     }
 
     private void configureContext() {
         new ApplicationContext().apply();
     }
 
-    private void startServer() {
-        Server server = new Server(PORT);
+    private void startServer(int port) {
+        Server server = new Server(port);
         ServletContextHandler contextHandler = new ServletContextHandler(server, "/");
         contextHandler.addFilter(EntityManagerContextFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
 
